@@ -10,9 +10,6 @@ setup(
     keywords=['mail', 'automatic', 'service', 'monitor'],
     author_email='flaviocomblez@gmail.com',
     description='This script allows to check services under Linux and sends mails in case of crash of one of them.',
-    install_requires=[
-        'validators',
-        'beautifulsoup4'],
     classifiers=[
         'Development Status :: 3 - Alpha',  # "3 - Alpha", "4 - Beta" or "5 - Production/Stable"
         'Intended Audience :: System administrator',

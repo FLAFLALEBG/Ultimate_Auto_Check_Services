@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: Ultimate-Auto-Check-Servies
+Version: 0.1
+Summary: This script allows to check services under Linux and sends mails in case of crash of one of them.
+Home-page: https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Servies
+Author: Flavio
+Author-email: flaviocomblez@gmail.com
+License: GNU General Public License v2 (GPLv2) (GPL-2.0-only)
+Description: UNKNOWN
+Keywords: mail,automatic,service,monitor
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: System administrator
+Classifier: Topic :: System administration
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
