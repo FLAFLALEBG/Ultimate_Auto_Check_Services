@@ -1,8 +1,0 @@
-LICENSE.txt
-README.md
-setup.cfg
-setup.py
-uacs.egg-info/PKG-INFO
-uacs.egg-info/SOURCES.txt
-uacs.egg-info/dependency_links.txt
-uacs.egg-info/top_level.txt
