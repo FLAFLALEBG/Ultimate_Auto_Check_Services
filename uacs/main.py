@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.8
 
 import sys
-import function
+from uacs import function
 import os
 import __init__
 
@@ -44,7 +44,7 @@ try:
 
     elif str(sys.argv[command]) == "--help" or str(sys.argv[command]) == "-h":
         sys.stdout = sys.__stdout__
-        docs = open("docs/help.txt", "r")
+        docs = open("../docs/help.txt", "r")
         print(docs.read())
         docs.close()
 

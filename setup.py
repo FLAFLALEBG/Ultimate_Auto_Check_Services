@@ -2,8 +2,7 @@ from setuptools import setup
 
 setup(
     name='uacs',
-    version='1.0',
-    packages=[''],
+    version='0.1',
     url='https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services',
     license='GNU General Public License v2 (GPLv2) (GPL-2.0-only)',
     author='Flavio',

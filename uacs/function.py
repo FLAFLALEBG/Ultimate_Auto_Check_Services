@@ -22,8 +22,8 @@ import time
 
 service_check = []
 exec_py_file = "main.py"
-file_ini_service = "config/service_monitored"
-file_ini_email = "config/email"
+file_ini_service = "../config/service_monitored"
+file_ini_email = "../config/email"
 service_name = "ultimate_auto_check_service"
 sender_email, email_password, receiver_email, smtp_server = "", "", "", ""
 email_smtp_port = 0
@@ -228,13 +228,13 @@ def init():
 
         # Enregistrement des variables dans le fichier
         variables = [sender_email, email_password, receiver_email, smtp_server, email_smtp_port]
-        sys.stdout.write(".")
+        sys.stdout.write("..")
         time.sleep(0.5)
         backup_file = open(file_ini_email, "wb")
-        sys.stdout.write(".")
+        sys.stdout.write("..")
         time.sleep(0.5)
         pickle.dump(variables, backup_file)
-        sys.stdout.write(".")
+        sys.stdout.write("..")
         time.sleep(0.5)
         backup_file.close()
         sys.stdout.write("\b\b\b\b\b\b\b\b\b\b")  # Erase "Saving..."

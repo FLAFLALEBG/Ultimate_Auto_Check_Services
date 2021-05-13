@@ -1,8 +1,5 @@
 LICENSE.txt
 README.md
-__init__.py
-function.py
-main.py
 setup.cfg
 setup.py
 uacs.egg-info/PKG-INFO
