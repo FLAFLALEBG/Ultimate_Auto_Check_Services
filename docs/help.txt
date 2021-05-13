@@ -1,0 +1,17 @@
+Usage:  uacs [OPTIONS] COMMAND [ARGUMENT]
+
+Options:
+  -v, --verbose    Shows more details on what the command does
+
+Commands:
+  restore          Restore Email and Service
+  restore_service  Restore Services
+  restore_email    Restore Email and Email's password
+  init             Init UACS
+  send_mail        Sends mail when a service crashes
+  start            Force run uacs
+  append           Append new service
+  -h, --help       Shows this message
+  stop             Stop all background scripts
+
+Run 'uacs COMMAND --help' for more information on a command.
