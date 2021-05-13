@@ -21,7 +21,7 @@ import time
 # --------------* VARIABLES *-------------- #
 
 service_check = []
-exec_py_file = "main.py"
+exec_py_file = "uacs.py"
 file_ini_service = "../config/service_monitored"
 file_ini_email = "../config/email"
 service_name = "ultimate_auto_check_service"
