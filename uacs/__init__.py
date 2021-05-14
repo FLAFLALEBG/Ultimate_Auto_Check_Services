@@ -1,13 +1,14 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python
 
-from uacs import function
+import function
 import time
 
+running = True
 
-def main():
+
+def run_daemon():
     print("Starting...")
     function.restore(True)
-    running = True
     print("Started !")
     while running:
         time.sleep(30)
@@ -18,4 +19,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    run_daemon()

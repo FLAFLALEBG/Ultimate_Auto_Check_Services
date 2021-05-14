@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.8
+#!/usr/bin/env python
 
 # --------------* TO DO *-------------- #
 
@@ -21,7 +21,7 @@ import time
 # --------------* VARIABLES *-------------- #
 
 service_check = []
-exec_py_file = "uacs.py"
+exec_py_file = "uacs"
 file_ini_service = "../config/service_monitored"
 file_ini_email = "../config/email"
 service_name = "ultimate_auto_check_service"

@@ -1,23 +1,35 @@
-import pathlib
 from setuptools import setup
-
-HERE = pathlib.Path(__file__).parent
-README = (HERE / "README.md").read_text()
 
 setup(
     name='uacs',
-    packages='uacs',
-    version='0.1.1',
-    url='https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services',
-    license='GNU General Public License v2 (GPLv2) (GPL-2.0-only)',
-    author='Flavio',
-    author_email='flaviocomblez@gmail.com',
+    version='0.2',
     description='This script allows to check services under Linux and sends mails in case of crash of one of them.',
+    long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
+    author='Flavio',
+    license='MIT',
     classifiers=[
-        "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.8"
-        "Programming Language :: Python :: 3.9",
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'Natural Language :: English, French',
+        'Topic :: Software Development :: Build Tools',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.7',
     ],
-    long_description=README,
+    keywords="service monitoring",
+    author_email='flaviocomble@gmail.com',
+    url='https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services',
+    packages=['uacs'],
+    install_requires=[
+        'setuptools~=56.2.0'
+    ],
+    entry_points={
+        'console_scripts': [
+            'uacs = uacs.uacs:main'
+        ],
+    }
 )

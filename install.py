@@ -1,5 +1,7 @@
+import git
 import os
 
-url =
+git.Git("/your/directory/to/clone").clone("git://gitorious.org/git-python/mainline.git")
+
 os.system(f"chmod +x uacs/uacs")
 
