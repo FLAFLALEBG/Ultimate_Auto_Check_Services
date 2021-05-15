@@ -1,7 +1,7 @@
 #!/bin/bash
 # Ultimate Auto Check Services installation script
 #
-# curl -sSL https://raw.githubusercontent.com/nextcloud/nextcloudpi/master/install.sh | bash
+# curl -sSL https://raw.githubusercontent.com/FLAFLALEBG/Ultimate_Auto_Check_Services/origin/install.sh | bash
 #
 # Usage: ./install.sh
 #
@@ -18,8 +18,8 @@ TMPDIR="/tmp/uacs"
   exit 1
 }
 # shellcheck disable=SC2153
-echo "Creating temp folder on ${TEMPDIR}"
-mkdir "${TEMPDIR}"
+echo "Creating temp folder on ${TMPDIR}"
+mkdir "${TMPDIR}"
 
 # get install code
 echo "Getting build code..."
