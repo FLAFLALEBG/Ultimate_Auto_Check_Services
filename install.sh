@@ -6,6 +6,8 @@
 # Usage: ./install.sh
 #
 # more details at https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services
+#
+#TODO : Optimiser installation: - télécharger un seul répertoire (/uacs) - télécharger automatiquement la bonne BRANCH
 
 BRANCH=origin
 
@@ -37,7 +39,7 @@ cd - && cd "$TMPDIR"/Ultimate_Auto_Check_Services-"$BRANCH" || exit
 echo "Installing code..."
 
 # shellcheck disable=SC2225
-cp -v uacs/ /usr/bin
+cp -rv uacs/ /usr/bin
 chmod +x /usr/bin/uacs/*
 
 echo "Cleaning of the installation"
