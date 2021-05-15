@@ -14,7 +14,7 @@ TMPDIR="/tmp/uacs"
 
 [[ ${EUID} -ne 0 ]] && {
   # shellcheck disable=SC2059
-  printf "Must be run as root. Try 'sudo $0'\n"
+  printf "Must be run as root. Try 'sudo'\n"
   exit 1
 }
 echo "Creating temp folder on $TMPDIR"
