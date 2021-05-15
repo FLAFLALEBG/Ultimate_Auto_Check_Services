@@ -17,7 +17,6 @@ TMPDIR="/tmp/uacs"
   printf "Must be run as root. Try 'sudo $0'\n"
   exit 1
 }
-# shellcheck disable=SC2153
 echo "Creating temp folder on $TMPDIR"
 mkdir $TMPDIR
 
