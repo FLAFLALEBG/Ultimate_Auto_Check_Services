@@ -17,22 +17,35 @@ TMPDIR="/tmp/uacs"
   printf "Must be run as root. Try 'sudo'\n"
   exit 1
 }
+
+echo "Installing dependencies"
+apt-get update
+apt-get install --no-install-recommends -y wget ca-certificates sudo systemd
+
 echo "Creating temp folder on $TMPDIR"
 mkdir $TMPDIR
+cd $TMPDIR || exit
 
 # get install code
 echo "Getting build code..."
+wget -qO- --content-disposition https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services/archive/$BRANCH/latest.tar.gz \
+  | tar -xzv \
+  || exit 1
 
-echo "Done.
+cd - && cd "$TMPDIR"/Ultimate_Auto_Check_Services-"$BRANCH" || exit
 
-First: Visit https://$IP/  https://nextcloudpi.local/ (also https://nextcloudpi.lan/ or https://nextcloudpi/ on windows and mac)
-to activate your instance of NC, and save the auto generated passwords. You may review or reset them
-anytime by using nc-admin and nc-passwd.
-Second: Type 'sudo ncp-config' to further configure NCP, or access ncp-web on https://$IP:4443/
-Note: You will have to add an exception, to bypass your browser warning when you
-first load the activation and :4443 pages. You can run letsencrypt to get rid of
-the warning if you have a (sub)domain available.
-"
+echo "Installing code..."
+
+# shellcheck disable=SC2225
+cp -v uacs/ /usr/bin
+chmod +x /usr/bin/uacs/*
+
+echo "Cleaning of the installation"
+curl -X PURGE raw.githubusercontent.com
+# shellcheck disable=SC2153
+rm -rf "$TEMPDIR"
+
+echo "Done."
 
 exit 0
 
