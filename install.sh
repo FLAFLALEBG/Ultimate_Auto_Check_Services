@@ -19,7 +19,7 @@ TMPDIR="/tmp/uacs"
 }
 # shellcheck disable=SC2153
 echo "Creating temp folder on $TMPDIR"
-mkdir "${TMPDIR}"
+mkdir $TMPDIR
 
 # get install code
 echo "Getting build code..."
