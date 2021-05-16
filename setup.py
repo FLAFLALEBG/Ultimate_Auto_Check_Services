@@ -12,7 +12,8 @@ setup(
         'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
-        'Natural Language :: English, French',
+        'Natural Language :: English',
+        'Natural Language :: French',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
@@ -21,7 +22,7 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     keywords="service monitoring",
-    author_email='flaviocomble@gmail.com',
+    author_email='flaviocomblez@gmail.com',
     url='https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services',
     packages=['uacs'],
     install_requires=[
@@ -29,7 +30,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'uacs.py = uacs.py.uacs.py:main'
+            'uacs = uacs.uacs.py:main'
         ],
     }
 )

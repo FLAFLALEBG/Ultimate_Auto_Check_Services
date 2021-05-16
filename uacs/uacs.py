@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-import sys
-import function
+from uacs.function import *
 import os
 import __init__
+import sys
 
-sys.stdout = open(os.devnull, 'w')  # Bloque tout les "print"
-function.restore(False)
+sys.stdout = open(os.devnull, 'w')
+restore(False)
 
 # --------------* Variables *-------------- #
 
@@ -41,7 +41,7 @@ def main():
         if str(sys.argv[command]) == "append":
             try:
                 argv_service = sys.argv[command + 1]
-                function.append(argv_service, verbose)
+                append(argv_service, verbose)
             except:
                 print("commande usage: uacs append 'service_to_append'")
 
@@ -55,19 +55,19 @@ def main():
             __init__.run_daemon()
 
         elif str(sys.argv[command]) == "send_mail":
-            function.send_mail("test", verbose)
+            send_mail("test", verbose)
 
         elif str(sys.argv[command]) == "restore":
-            function.restore(verbose)
+            restore(verbose)
 
         elif str(sys.argv[command]) == "restore_service":
-            function.restore_service(verbose)
+            restore_service(verbose)
 
         elif str(sys.argv[command]) == "restore_email":
-            function.restore_email(verbose)
+            restore_email(verbose)
 
         elif str(sys.argv[command]) == "init":
-            function.init()
+            init()
 
         elif str(sys.argv[command]) == "stop":
             pass  # running = False

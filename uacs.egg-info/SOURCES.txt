@@ -1,0 +1,12 @@
+LICENSE.txt
+README.md
+setup.py
+uacs/__init__.py
+uacs/function.py
+uacs/uacs.py
+uacs.egg-info/PKG-INFO
+uacs.egg-info/SOURCES.txt
+uacs.egg-info/dependency_links.txt
+uacs.egg-info/entry_points.txt
+uacs.egg-info/requires.txt
+uacs.egg-info/top_level.txt

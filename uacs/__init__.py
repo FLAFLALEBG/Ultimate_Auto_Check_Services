@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-import function
+from uacs.function import *
+from uacs.uacs import *
 import time
 
 running = True
