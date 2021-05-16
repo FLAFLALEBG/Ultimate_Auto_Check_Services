@@ -19,7 +19,6 @@ import ssl
 import sys
 import threading
 import time
-import __init__
 
 # --------------* VARIABLES *-------------- #
 
@@ -221,8 +220,10 @@ def daemon():
     print("Stopped")
 
 
+daemon = threading.Thread(target=daemon())
+
+
 def run_daemon():
-    daemon = threading.Thread(target=__init__.daemon())
     daemon.start()
 
 
