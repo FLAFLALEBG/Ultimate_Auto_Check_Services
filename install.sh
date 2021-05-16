@@ -39,8 +39,8 @@ cd - && cd "$TMPDIR"/Ultimate_Auto_Check_Services-"$BRANCH" || exit
 echo "Installing code..."
 
 # shellcheck disable=SC2225
-cp -rv uacs/ /usr/bin
-chmod +x /usr/bin/uacs/*
+cp -rv uacs.py/ /usr/bin
+chmod +x /usr/bin/uacs.py/*
 
 echo "Cleaning of the installation"
 curl -X PURGE raw.githubusercontent.com

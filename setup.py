@@ -29,7 +29,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'uacs = uacs.uacs:main'
+            'uacs.py = uacs.py.uacs.py:main'
         ],
     }
 )
