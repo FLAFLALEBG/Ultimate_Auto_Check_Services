@@ -2,7 +2,6 @@ LICENSE.txt
 README.md
 setup.py
 uacs/__init__.py
-uacs/function.py
 uacs/uacs.py
 uacs.egg-info/PKG-INFO
 uacs.egg-info/SOURCES.txt
