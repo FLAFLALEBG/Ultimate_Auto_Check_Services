@@ -1,2 +1,2 @@
-uacs~=0.1.1
-setuptools~=56.2.0
+setuptools
+uacs

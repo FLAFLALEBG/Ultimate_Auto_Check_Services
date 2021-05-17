@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='uacs',
-    version='0.2.7',
+    version='0.3.15',
     description='This script allows to check services under Linux and sends mails in case of crash of one of them.',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",

@@ -19,15 +19,16 @@ import ssl
 import sys
 import threading
 import time
-import uacs
 
 # --------------* VARIABLES *-------------- #
 
 service_check = []
-exec_py_file = "uacs"
-file_ini_service = "../config/service_monitored"
-file_ini_email = "../config/email"
+services_restored = []
+email_restored = []
+file_ini_service = "/etc/uacs/service_monitored.conf"
+file_ini_email = "/etc/uacs/email.conf"
 service_name = "ultimate_auto_check_service"
+path_config = "/etc/uacs/"
 sender_email, email_password, receiver_email, smtp_server = "", "", "", ""
 email_smtp_port = 0
 running = True
@@ -45,6 +46,10 @@ UNDERLINE = '\033[4m'
 
 
 # --------------* Functions *-------------- #
+def main():
+    pass
+
+
 def enablePrint():
     sys.stdout = sys.__stdout__
 
@@ -58,7 +63,7 @@ def restore_service(verbose):  # Restauration des services depuis un fichier (fi
     if verbose:
         enablePrint()
 
-    global service_check
+    global service_check, services_restored
     print("Service restoration")
     print(f"Searching for the file : {file_ini_service}")
     if os.path.isfile(file_ini_service):
@@ -68,7 +73,12 @@ def restore_service(verbose):  # Restauration des services depuis un fichier (fi
         backup_file = open(file_ini_service, "rb")
 
         print(f"Reading variables in the file : " + file_ini_service)
-        services_restored = pickle.load(backup_file)
+        try:
+            services_restored = pickle.load(backup_file)
+
+        except:
+            print("Error file empty")
+
         backup_file.close()
 
         print("Adding the backup to the buffer")
@@ -79,6 +89,8 @@ def restore_service(verbose):  # Restauration des services depuis un fichier (fi
     else:
         # The file does not exist
         print(f"File {file_ini_service} not found")
+        os.system(f"sudo mkdir -p /etc/uacs/ && sudo touch {file_ini_service}")
+        print(f"Created file {file_ini_service}")
 
 
 # noinspection PyUnusedLocal
@@ -86,7 +98,7 @@ def restore_email(verbose):  # Restauration de l'email / mot de passe depuis le 
     if verbose:
         enablePrint()
 
-    global sender_email, email_password, receiver_email, smtp_server, email_smtp_port
+    global sender_email, email_password, receiver_email, smtp_server, email_smtp_port, email_restored
 
     print("Restauration of the email address and its password")
     print(f"Searching for the file : {file_ini_email}")
@@ -97,20 +109,28 @@ def restore_email(verbose):  # Restauration de l'email / mot de passe depuis le 
         backup_file = open(file_ini_email, "rb")
 
         print(f"Reading variables in the file : " + file_ini_email)
-        email_restored = pickle.load(backup_file)
-        backup_file.close()
 
-        sender_email = email_restored[0]
-        email_password = email_restored[1]
-        receiver_email = email_restored[2]
-        smtp_server = email_restored[3]
-        email_smtp_port = email_restored[4]
+        try:
+            email_restored = pickle.load(backup_file)
+
+            backup_file.close()
+
+            sender_email = email_restored[0]
+            email_password = email_restored[1]
+            receiver_email = email_restored[2]
+            smtp_server = email_restored[3]
+            email_smtp_port = email_restored[4]
+
+        except:
+            print("Error file empty")
 
         print(f"The email adresse have been restored")
 
     else:
         # The file does not exist
         print(f"File {file_ini_email} not found")
+        os.system(f"sudo mkdir -p /etc/uacs/ && sudo touch {file_ini_email}")
+        print(f"Created file {file_ini_email}")
 
 
 def append(append_service, verbose):  # Ajoute un service a la liste et l'ajoute également au fichier (file_ini)
@@ -156,6 +176,7 @@ def check_service(verbose):
 
 
 def service_down(service, verbose):
+    global active
     if verbose:
         enablePrint()
 
@@ -222,8 +243,7 @@ def daemon():
 
 
 def run_daemon():
-    daemon = threading.Thread(target=daemon())
-    daemon.start()
+    threading.Thread(target=daemon()).start()
 
 
 def init():
@@ -245,22 +265,12 @@ def init():
         except:
             email_smtp_port = int(input(f"{FAIL}Please enter a numerical value{ENDC} : "))
 
-        sys.stdout.write("Saving")
-
         # Enregistrement des variables dans le fichier
         variables = [sender_email, email_password, receiver_email, smtp_server, email_smtp_port]
-        sys.stdout.write("..")
-        time.sleep(0.5)
         backup_file = open(file_ini_email, "wb")
-        sys.stdout.write("..")
-        time.sleep(0.5)
         pickle.dump(variables, backup_file)
-        sys.stdout.write("..")
-        time.sleep(0.5)
-        backup_file.close()
-        sys.stdout.write("\b\b\b\b\b\b\b\b\b\b")  # Erase "Saving..."
-        sys.stdout.write("Saved !\n")
-        time.sleep(0.5)
+        print("Saved !")
+        time.sleep(1)
 
         def test_email():
             answer = input("Do you want to perform an email test ? [y/n]: ")
@@ -335,12 +345,12 @@ def init():
         if answer == "yes" or "y" or "Y":
             print("")
             service = open(f"/lib/systemd/system/{service_name}.service", "w")
-            service.write(f"[Unit]"
-                          f"Description = Ultimate Auto Check Service"
-                          f"[Service]"
-                          f"ExecStart = {os.path.join(os.path.dirname(__file__), exec_py_file)} run"
-                          f"[Install]"
-                          f"WantedBy = default.target")
+            service.write(f"[Unit]\n"
+                          f"Description = Ultimate Auto Check Service\n"
+                          f"[Service]\n"
+                          f"ExecStart = /usr/local/bin/uacs -v start\n"
+                          f"[Install]\n"
+                          f"WantedBy = default.target\n")
             service.close()
 
         elif answer == "no" or "n" or "N":
@@ -365,6 +375,13 @@ def init():
                 print("Error, please enter a correct value")
                 start_service()
 
+        start_service()
+
         print("Configuration successful, add new service with : uacs -a 'service.service'")
+        exit()
 
     config_service()
+
+
+if __name__ == '__main__':
+    main()
