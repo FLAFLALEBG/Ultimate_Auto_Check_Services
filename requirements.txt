@@ -1,2 +1,2 @@
 setuptools
-uacs
+clr

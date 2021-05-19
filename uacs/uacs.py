@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import uacs
 import os
@@ -23,7 +24,6 @@ command = 2
 argument = 3
 have_argument = False
 
-
 # --------------* Argv *-------------- #
 
 # ---* Option *--- #
@@ -44,17 +44,15 @@ except:
 
 # ---* Command *--- #
 if str(sys.argv[command]) == "append":
-    try:
-        argv_service = sys.argv[command + 1]
-        uacs.append(argv_service, verbose)
-    except:
-        print("commande usage: uacs append 'service_to_append'")
+    argv_service = sys.argv[command + 1]
+    uacs.append(argv_service, verbose)
+
 
 elif str(sys.argv[command]) == "start":
     uacs.run_daemon()
 
 elif str(sys.argv[command]) == "send_mail":
-    uacs.send_mail("test", verbose)
+    uacs.send_mail("ultimate_auto_check_service", verbose)
 
 elif str(sys.argv[command]) == "restore":
     uacs.restore(verbose)
@@ -92,5 +90,9 @@ Commands:
 
 Run 'uacs COMMAND --help' for more information on a command.
 """)
+
+elif str(sys.argv[command]) == "--upgrade":
+    os.system("pip3 install uacs --upgrade")
+    os.system("pip3 install uacs --upgrade")
 
 exit(0)

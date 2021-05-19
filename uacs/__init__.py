@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # --------------* TO DO *-------------- #
 
@@ -32,6 +33,7 @@ path_config = "/etc/uacs/"
 sender_email, email_password, receiver_email, smtp_server = "", "", "", ""
 email_smtp_port = 0
 running = True
+number_restart = 3
 
 # Colors
 HEADER = '\033[95m'
@@ -144,14 +146,13 @@ def append(append_service, verbose):  # Ajoute un service a la liste et l'ajoute
     if str(exist_service).find(".service"):
         print("Service exist \nSaving ...")
 
-        service_to_append = append_service
-
         print(f"Opening the file {file_ini_service}")
         backup_file = open(file_ini_service, "wb")
 
         print(f"Appending the service {append_service}")
-        pickle.dump(service_to_append, backup_file)
+        pickle.dump(append_service, backup_file)
         backup_file.close()
+        service_check.append(append_service)
         print("Saved !")
     else:
         print("Service don't exist")
@@ -166,32 +167,29 @@ def check_service(verbose):
     for i in range(len(service_check)):
         print(f"systemctl status {service_check[i]} | grep active")
         active = os.system(f"systemctl status {service_check[i]} | grep active")
-        if str(active).find("active"):
-            print("Service is active")
-            pass
-
-        elif str(active).find("inactive"):
+        if str(active).find("inactive"):
             print(f"Service is inactive \nLaunch of the restart of the services {service_check[i]}")
             service_down(service_check[i], verbose)
 
+        elif str(running).find("active"):
+            print("Service is active")
+
 
 def service_down(service, verbose):
-    global active
+    global active, number_restart
     if verbose:
         enablePrint()
 
     # Essaye de relancer 3x le service
     # et envoie un mail si il ne redémarre pas
-    number_restart = 3
     for i in range(number_restart):
         print(f"Relaunching n°{i}/{number_restart}")
-        active = os.system(f"systemctl status {service} | grep active")
+        active = os.system(f"systemctl status {service}")
         if str(active).find("inactive"):
             os.system(f"systemctl restart {service}")
             continue
-        elif str(active).find("active"):
+        elif str(active).find("running"):
             print(f"Successful restarting service {service}")
-            break
         else:
             print("Error, we do not know the status of this service")
             continue
@@ -204,30 +202,41 @@ def service_down(service, verbose):
 
 
 def send_mail(subject, verbose):
+    global sender_email, email_password, smtp_server, email_smtp_port, receiver_email
     if verbose:
         enablePrint()
 
     # Envoie un mail
     now = datetime.datetime.now()
+    cpu_usage = """grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage "%"}' """
+
+    cpu_temp = "cat /sys/class/thermal/thermal_zone*/temp"
+    cpu_temp = int(os.popen(cpu_temp).read())
+    cpu_temp = "{:,}".format(cpu_temp)
+
     message = f"""\
-        Subject: Oh non le service {subject} à planté !
+    Subject: Oh non le service {subject} à planté !
 
-        Bonjour, Je tiens à vous informer que ce jour le {now.day}/{now.month}/{now.year} à {now.hour}:{now.minute} le 
-        service intitulé {subject} à planté avec ceci en log : '{os.popen(f"systemctl status {subject}")}'.
-        Plusieurs operation affin de le relancer ont toutes échouées
-        From Auto_Check_service Python Bot"""
+    Bonjour, Je tiens à vous informer que ce jour le {now.day}/{now.month}/{now.year} à {now.hour}:{now.minute} le 
+    service intitulé {subject} à planté.
+    {number_restart} operation affin de le relancer ont toutes échouées
+    
+    Information système : 
+    CPU Temp = {os.system(cpu_temp)}
+    CPU Usage = {os.system(cpu_usage)}
+    From Auto_Check_service Python Bot"""
 
-    context = ssl.create_default_context()
     try:
+        context = ssl.create_default_context()
         with smtplib.SMTP_SSL(smtp_server, email_smtp_port, context=context) as server:
             server.login(sender_email, email_password)
-
-            server.sendmail(sender_email, receiver_email, message)
+            server.sendmail(sender_email, receiver_email, message.encode("utf8"))
 
             print("Successful sending mail")
 
     except:
-        print("Sending error please check the sender's email and password or the receiver's")
+        print(f"Sending error please check the sender's email ({sender_email}) and password or the receiver's "
+              f"({receiver_email})")
 
 
 def daemon():
@@ -332,7 +341,7 @@ def init():
 
     print(f"Verification of the packages make sure that no task are active with the {BOLD}APT{ENDC} command ...")
     try:
-        os.system("sudo apt install -y systemd")
+        os.system("sudo apt install -y systemd sysstat")
         print("Verification and installation completed.")
     except:
         print("Installation failed retry another time with the command 'sudo apt install -y systemd'.")
