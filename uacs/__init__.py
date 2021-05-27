@@ -220,7 +220,7 @@ def send_mail(subject, verbose):
 
     disk_usage = psutil.disk_usage(os.sep).percent
 
-    # Create the plain-text and HTML version of your message
+    uuid = uuid.uuid1()
 
     print(psutil.cpu_percent(percpu=False))
     print(cpu_usage)
@@ -244,7 +244,7 @@ Disk Used : {disk_usage}%
 Cpu Usage : {cpu_usage}%  
  
 .................................
-id : 
+id : {uuid}
 .................................
 
 Send From https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services
@@ -259,6 +259,7 @@ Send From https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services
             print("Successful sending mail")
 
     except:
+        print(f"Mail with id {uuid} error")
         print(f"Sending error please check the sender's email ({sender_email}) and password or the receiver's "
               f"({receiver_email})")
 
