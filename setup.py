@@ -1,8 +1,8 @@
-from setuptools import setup
+import setuptools
 
-setup(
+setuptools.setup(
     name='uacs',
-    version='0.5.17',
+    version='0.6.1',
     description='This script allows to check services under Linux and sends mails in case of crash of one of them.',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
@@ -24,10 +24,11 @@ setup(
     keywords="service monitoring",
     author_email='flaviocomblez@gmail.com',
     url='https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services',
-    packages=['uacs'],
+    packages=setuptools.find_packages(),
     install_requires=[
-        'setuptools'
-        'gpiozero'
+        'setuptools',
+        'uacs',
+        'psutil',
     ],
     entry_points={
         'console_scripts': [

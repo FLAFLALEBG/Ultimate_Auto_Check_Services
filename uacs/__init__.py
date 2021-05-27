@@ -21,6 +21,7 @@ import threading
 import time
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import uuid
 
 # --------------* VARIABLES *-------------- #
 
@@ -238,10 +239,12 @@ Subject: The {subject} service is down
 Cpu Temp : {cpu_temp.current}°C                                                                                   
 Date : {now}
 Service name : {subject}  
-Ram Used = {ram_used}%     
-Disk Used = {disk_usage}%     
-Cpu Usage : {cpu_usage}%          
-
+Ram Used : {ram_used}%     
+Disk Used : {disk_usage}%     
+Cpu Usage : {cpu_usage}%  
+ 
+.................................
+id : 
 .................................
 
 Send From https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services

@@ -9,3 +9,11 @@ uacs.egg-info/dependency_links.txt
 uacs.egg-info/entry_points.txt
 uacs.egg-info/requires.txt
 uacs.egg-info/top_level.txt
+uacs/command/__init__.py
+uacs/command/append.py
+uacs/command/check_service.py
+uacs/command/daemon.py
+uacs/command/init.py
+uacs/command/restore_email.py
+uacs/command/restore_service.py
+uacs/command/send_mail.py
