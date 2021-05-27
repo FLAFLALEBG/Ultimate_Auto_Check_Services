@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='uacs',
-    version='0.5.10',
+    version='0.5.17',
     description='This script allows to check services under Linux and sends mails in case of crash of one of them.',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
@@ -26,7 +26,8 @@ setup(
     url='https://github.com/FLAFLALEBG/Ultimate_Auto_Check_Services',
     packages=['uacs'],
     install_requires=[
-        'setuptools~=56.2.0'
+        'setuptools'
+        'gpiozero'
     ],
     entry_points={
         'console_scripts': [

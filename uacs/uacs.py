@@ -51,16 +51,16 @@ if str(sys.argv[command]) == "append":
 elif str(sys.argv[command]) == "start":
     uacs.run_daemon()
 
-elif str(sys.argv[command]) == "send_mail":
+elif str(sys.argv[command]) == "testmail":
     uacs.send_mail("ultimate_auto_check_service", verbose)
 
 elif str(sys.argv[command]) == "restore":
     uacs.restore(verbose)
 
-elif str(sys.argv[command]) == "restore_service":
+elif str(sys.argv[command]) == "restoreservice":
     uacs.restore_service(verbose)
 
-elif str(sys.argv[command]) == "restore_email":
+elif str(sys.argv[command]) == "restoremail":
     uacs.restore_email(verbose)
 
 elif str(sys.argv[command]) == "init":
@@ -79,10 +79,10 @@ Options:
 
 Commands:
   restore          Restore Email and Service
-  restore_service  Restore Services
-  restore_email    Restore Email and Email's password
+  restoreservice   Restore Services
+  restoremail     Restore Email and Email's password
   init             Init UACS
-  send_mail        Sends mail when a service crashes
+  testmail         Sends mail when a service crashes
   start            Force run uacs
   append           Append new service
   -h, --help       Shows this message
@@ -93,6 +93,8 @@ Run 'uacs COMMAND --help' for more information on a command.
 
 elif str(sys.argv[command]) == "--upgrade":
     os.system("pip3 install uacs --upgrade")
-    os.system("pip3 install uacs --upgrade")
+
+else:
+    print(f"Command {sys.argv[command]} not found")
 
 exit(0)
